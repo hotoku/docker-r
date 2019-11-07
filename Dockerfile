@@ -13,3 +13,5 @@ RUN install2.r --error maps mapproj
 RUN install2.r --error quantmod
 
 RUN apt install fonts-noto-cjk
+
+RUN install2.r --error loggit
