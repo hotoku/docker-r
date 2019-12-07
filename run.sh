@@ -16,4 +16,4 @@ done
 
 
 DOCKER=/usr/local/bin/docker
-${DOCKER} run -d --rm -e PASSWORD=${PASSWORD} -v ${VOLUME}:/home/rstudio -p ${PORT}:8787 hotoku/r
+${DOCKER} run --rm -e PASSWORD=${PASSWORD} -v ${VOLUME}:/home/rstudio -p ${PORT}:8787 hotoku/r
