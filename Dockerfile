@@ -12,3 +12,4 @@ RUN apt install fonts-noto-cjk
 RUN install2.r --error --deps TRUE shiny future promises
 RUN install2.r --error loggit
 RUN install2.r --error ggmcmc
+RUN install2.r --error future
