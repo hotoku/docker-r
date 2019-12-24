@@ -5,13 +5,17 @@ ENV TZ JST-9
 RUN \
   sudo apt-get install libcairo2-dev && \
   yes Y | sudo apt-get install libxt-dev && \
-  apt install fonts-noto-cjk && \
-  install2.r -n4 --error --deps TRUE \
+  apt install fonts-noto-cjk
+
+RUN install2.r -n4 --error --deps TRUE \
     -r https://cran.r-project.org/ \
     ConfigParser \
     rstan \
     shiny \
-    future \
+    future
+
+RUN install2.r -n4 --error --deps TRUE \
+    -r https://cran.r-project.org/ \
     apromises \
     loggit \
     ggmcmc \
