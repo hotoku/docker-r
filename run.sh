@@ -2,9 +2,8 @@
 
 
 PORT=8787
-VOLUME=$(pwd)
-PASSWORD=hotoku
-
+VOLUME=?
+PASSWORD=x
 while getopts p:v:q: OPT; do
     case ${OPT} in
         p) PORT=${OPTARG}     ;;
@@ -14,6 +13,15 @@ while getopts p:v:q: OPT; do
     esac
 done
 
+if [ -d ${VOLUME} ]; then
+    VOLUME_OP="-v ${VOLUME}:/home/rstudio"
+fi
+
 
 DOCKER=/usr/local/bin/docker
-${DOCKER} run --rm -e PASSWORD=${PASSWORD} -v ${VOLUME}:/home/rstudio -p ${PORT}:8787 hotoku/r
+${DOCKER} run --rm \
+          -e PASSWORD=${PASSWORD} \
+          ${VOLUME_OP} \
+          -p ${PORT}:8787 \
+          --name rstudio \
+          hotoku/r

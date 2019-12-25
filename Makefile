@@ -1,14 +1,29 @@
 .PHONY: all build unload load
 
-PLIST=/Users/hotoku/Library/LaunchAgents/info.hotoku.sample_r.plist
+PLIST_NAME=info.hotoku.rstudio
+PLIST_DIR=~/Library/LaunchAgents
+IMAGE_NAME=hotoku/r
+CONTAINER_NAME=rstudio
 
-all: unload build load
+all: load
 
-unload:
-	launchctl unload $(PLIST)
+load: $(PLIST_NAME).plist image stop
+	cp -f $< $(PLIST_DIR) && \
+		cd $(PLIST_DIR) && \
+		launchctl load $(PLIST_NAME).plist
 
-build: unload
-	docker build -t hotoku/r . 
+image: unload
+	docker build -t $(IMAGE_NAME) .
 
-load: build
-	launchctl load $(PLIST)
+rebuild: unload
+	docker build --no-cache -t $(IMAGE_NAME) .
+
+clean: unload
+	rm $(PLIST_DIR)/$(PLIST_NAME).plist
+
+unload: stop
+	cd $(PLIST_DIR) && \
+		launchctl unload $(PLIST_NAME).plist
+
+stop:
+	docker stop $(CONTAINER_NAME) || true
