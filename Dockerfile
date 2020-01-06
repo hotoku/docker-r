@@ -22,3 +22,8 @@ RUN \
   install2.r -n4 --error --deps TRUE \
     -r https://cran.r-project.org/ \
     logging
+
+RUN \
+  install2.r -n4 --error --deps TRUE \
+    -r https://cran.r-project.org/ \
+    tidybayes
